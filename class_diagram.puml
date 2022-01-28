@@ -1,0 +1,61 @@
+@startuml
+' poll part
+
+class FrontInfoScreenshot {
+    screenshot: ImageField
+    front_info: IntegerField <<FK>>
+}
+class FrontInfo {
+    -type: CharField
+    -short_description: CharField
+    -description: TextField
+}
+
+class BaseComponent {
+    -title: String
+    -page: IntegerField <<FK>>
+    -front_info: IntegerField <<FK>>
+    -parent (page/component): Integer <<FK>>
+}
+
+BaseComponent o-- BaseComponent
+FrontInfo *-- BaseComponent
+FrontInfo *-- FrontInfoScreenshot
+
+class TitleTextComponent {
+    -title: CharField
+    -text: CharField
+}
+
+class TextImageComponent {
+    -text: CharField
+    -image: ImageField
+}
+
+class TitleTextImageComponent {
+    -title: CharField
+    -text: CharField
+    -image: ImageField
+}
+
+class TitleTextDescriptionComponent {
+    -title: CharField
+    -text: CharField
+    -description: TextField
+}
+
+class SliderComponent {
+    -title: CharField
+}
+
+class SliderComponentSlides {
+
+}
+
+BaseComponent <-- TitleTextComponent
+BaseComponent <-- TextImageComponent
+BaseComponent <-- TitleTextImageComponent
+BaseComponent <-- TitleTextDescriptionComponent
+BaseComponent <-- SliderComponentComponent
+
+@enduml
